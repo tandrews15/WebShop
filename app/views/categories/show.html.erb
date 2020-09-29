@@ -1,0 +1,53 @@
+<div class="container mt-5">
+
+  <h1>
+    <%= @category.name %>
+  </h1>
+
+  <table class="table">
+    <thead>
+      <tr class="text-center">
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th colspan="4"> Functions: </th>
+
+      </tr>
+    </thead>
+
+    <tbody class="text-center">
+      <% @category_items.order(:item_id).each do |category_item| %>
+      <tr>
+        <td>
+          <% if category_item.item.photoUrl? %>
+          <img src="<%=category_item.item.photoUrl%>" alt="<%=category_item.item.name%>" height="50" width="auto">
+          <%else%>
+          <img src="https://i.imgur.com/b8pDeep.png" height="50" width="auto" alt="No photo available">
+          <%end%>
+        </td>
+
+        <td><%= category_item.item.name %></td>
+        <td><%= category_item.item.price %></td>
+        <td><%= category_item.item.quantity %></td>
+
+        <td><%= link_to 'Show', item_path(category_item.item), class: "btn btn-outline-success btn-sm" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Edit', edit_category_path(@category) %> |
+  <%= link_to 'Back', categories_path %>
+
+
+
+
+
+
+
+
+
+
+
+</div>

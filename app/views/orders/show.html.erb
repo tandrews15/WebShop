@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Shipping address:</strong>
+  <%= @order.shipping_address %>
+</p>
+
+<p>
+  <strong>User notes:</strong>
+  <%= @order.user_notes %>
+</p>
+
+<p>
+  <strong>Shipping notes:</strong>
+  <%= @order.shipping_notes %>
+</p>
+
+<p>
+  <strong>Confirmed:</strong>
+  <%= @order.confirmed %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @order.user_id %>
+</p>
+
+<p>
+  <strong>Payment:</strong>
+  <%= @order.payment_id %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

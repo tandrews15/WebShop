@@ -1,0 +1,51 @@
+<h1>Items</h1>
+
+<table class="table">
+  <thead>
+    <tr class="text-center">
+      <th>Photo</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th colspan="4"> Functions: </th>
+
+    </tr>
+  </thead>
+
+  <tbody class="text-center">
+    <% @items.order(:id).each do |item| %>
+    <tr>
+
+      <td>
+        <% if item.photoUrl? %>
+        <img src="<%=item.photoUrl%>" alt="<%=item.name%>" height="50" width="auto">
+        <%else%>
+        <img src="https://i.imgur.com/b8pDeep.png" height="50" width="auto" alt="No photo available">
+        <%end%>
+      </td>
+
+      <td><%= item.name %></td>
+      <td><%= item.price %></td>
+      <td><%= item.quantity %></td>
+      <%#=@quantity_ordered = number_field(nil, 1,  min: 1, max: item.quantity) %>
+      <td><%= button_to 'Add item to cart',
+       ordered_items_url(quantity: 1, order_id: @order.id, item_id: item.id), class: "btn btn-outline-primary btn-sm" %></td>
+
+      <td><%= link_to 'Show', item, class: "btn btn-outline-success btn-sm" %></td>
+
+
+      <%# if current_user.admin%>
+      <td><%= link_to 'Edit', edit_item_path(item), class: "btn btn-outline-secondary btn-sm"%></td>
+      <td><%= link_to 'Delete', item, method: :delete, class: "btn btn-outline-danger btn-sm", data: { confirm: 'Are you sure?' } %></td>
+      <%#else%>
+
+
+      <%#end%>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Item', new_item_path %>

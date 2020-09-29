@@ -1,0 +1,37 @@
+<%= form_with(model: ordered_item, local: true) do |form| %>
+<% if ordered_item.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(ordered_item.errors.count, "error") %> prohibited this ordered_item from being saved:</h2>
+
+  <ul>
+    <% ordered_item.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<%= @old_ordered_item.id %>
+<%= @old_ordered_item.quantity %>
+
+
+
+<div class="form-group">
+  <%= form.label :order_id %>
+  <%= form.text_field :order_id, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :item_id %>
+  <%= form.text_field :item_id, class: "form-control"%>
+</div>
+
+<div class="form-group">
+  <%= form.label :quantity %>
+  <%= form.number_field :quantity, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.submit nil, class: "btn btn-success"%>
+</div>
+<% end %>

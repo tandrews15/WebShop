@@ -1,0 +1,62 @@
+    <% @orders_all.where(user_id: user_id).each do |o| %>
+    <table class="table">
+      <thead class="text-center">
+
+        <tr>
+          <th>Order ID</th>
+          <th>Ordered by</th>
+          <th>Shipping to</th>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th>Quantity</th>
+          <th colspan="2">Functions</th>
+        </tr>
+      </thead>
+
+      <tbody class="text-center">
+        <% total_price=0 %>
+        <% @ordered_items_all.where(order_id: o.id).order(:id).each do |ordered_item| %>
+
+
+        <tr>
+          <td><%= ordered_item.order_id %></td>
+          <td><%= ordered_item.order.user.name %></td>
+          <td><%= ordered_item.order.shipping_address %></td>
+          <td><%= ordered_item.item.name %></td>
+          <td><%= ordered_item.item.price %></td>
+
+
+          <% price_and_quantity = ordered_item.item.price * ordered_item.quantity %>
+          <td><%= number_with_precision(price_and_quantity, precision: 2) %></td>
+          <% total_price += ordered_item.item.price * ordered_item.quantity %>
+
+
+          <% if o.confirmed %>
+          <td colspan="2" class="text-danger"> Confirmed order</td>
+          <% else %>
+          <td>
+            <%= form_for(ordered_item,  method: :patch)  do |form| %>
+            <%= form.number_field :quantity_new, value: ordered_item.quantity %>
+          </td>
+          <%= hidden_field_tag "id", ordered_item.id %>
+          <%= hidden_field_tag "old_quantity", ordered_item.quantity %>
+          <td><%= form.submit nil, class: "btn btn-outline-secondary btn-sm"%><% end %></td>
+
+          <td><%= link_to 'Destroy', ordered_item, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %></td>
+        </tr>
+        <% end %>
+        <% end %>
+
+
+      </tbody>
+
+    </table>
+    <p> Total price for the order:
+      <strong>
+        <%= number_with_precision(total_price, precision: 2)%>
+      </strong>
+    </p>
+
+    <br>
+    <% end %>

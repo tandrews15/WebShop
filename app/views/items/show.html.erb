@@ -1,0 +1,65 @@
+<div class="container m-4 pb-5">
+
+  <% if @item.photoUrl != nil %>
+  <img src="<%=@item.photoUrl%>" alt="<%=@item.name%>" height="200" width="auto">
+  <%else%>
+  <small>No photo available</small>
+  <%end%>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><%= @item.name %></h5>
+
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Name:</strong> <%= @item.name %></li>
+        <li class="list-group-item"><strong>Quantity:</strong> <%= @item.quantity %></li>
+        <li class="list-group-item"><strong>Price:</strong> <%= @item.price %></li>
+        <li class="list-group-item"><strong>Rating: </strong> <%= @rating_avg %> </li>
+        <li class="list-group-item"><strong>Categories: </strong> <%= @result %></li>
+      </ul>
+      <div class="btn-group">
+        <%= button_to 'Add item to cart',
+       ordered_items_url(quantity: 1, order_id: @order.id, item_id: @item), class: "btn btn-primary m-1"%>
+        <%= link_to "Edit", edit_item_path(@item), class: "btn btn-secondary m-1"%>
+        <%= link_to "Back", items_path, class: "btn btn-dark m-1"%>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <br>
+  <h1>Feedbacks: </h1>
+  <%if @feedback.present? %>
+
+  <p>There are no feedbacks</p>
+
+  <%else%>
+
+  <% @feedbacks.each do |feedback| %>
+  <div class="card">
+    <div class="card-header">
+      Rating: <%=feedback.rating %>
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p><%=feedback.comment %></p>
+        <footer class="blockquote-footer">by <cite title="Source Title"><%=feedback.user.name%></cite></footer>
+      </blockquote>
+
+    </div>
+
+  </div>
+  <br>
+  <% end %>
+
+  <% end %>
+
+
+  <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-hidden="true" style="display: none"></div>
+  <%= link_to "Add feedback", feedbacks_items_path, class: "btn btn-success", remote: true, data: {toggle: "modal"}, data: { target: "#feedback" } %>
+
+
+
+</div>

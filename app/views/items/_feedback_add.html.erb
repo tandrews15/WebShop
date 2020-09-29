@@ -1,0 +1,37 @@
+<!-- Modal -->
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Create feedback as: <%=current_user.name%></h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <%= form_with(model: @items, url: feedbacks_add_items_path, method: :GET, local: true) do |form| %>
+
+      <div class="form-group">
+        <%= form.label :rating %><br>
+        <%= form.number_field :rating, min: 1, max: 10, class: "form-control"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :comment %><br>
+        <%= form.text_area :comment, class: "form-control" %>
+      </div>
+
+      <%= hidden_field_tag "user_id", current_user.id %>
+      <%#= $item_id %>
+      <%= hidden_field_tag "item_id", $item_id %>
+
+      <div class="form-group modal-footer ">
+        <%= form.submit nil, class: "btn btn-success"%>
+      </div>
+
+      <%end%>
+
+    </div>
+
+  </div>
+</div>

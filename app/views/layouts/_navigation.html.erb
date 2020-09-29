@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <%= link_to "MotoTony" , root_path, class:"navbar-brand"%>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <%if user_signed_in?%>
+
+      <%= link_to 'Items', items_path, class: "nav-link nav-item"%>
+
+      <%= link_to 'Ordered items', ordered_items_path, class: "nav-link nav-item"%>
+
+      <%= link_to 'Orders', orders_path, class: "nav-link nav-item"%>
+
+      <%= link_to 'Categories', categories_path, class: "nav-link nav-item"%>
+
+
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%if current_user.admin%>
+          Admin:
+          <%end%>
+          <%=current_user.name%>
+        </a>
+
+
+
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+          <%= link_to 'Edit profile', edit_user_registration_path, class: "dropdown-item"%>
+
+          <div class="dropdown-divider"></div>
+
+          <%= link_to 'Logout', destroy_user_session_path, class: "dropdown-item", method: :delete%>
+
+        </div>
+      </li>
+
+      <%else%>
+      <li class="nav-item">
+        <%= link_to 'Login', new_user_session_path, class: "nav-link"%>
+      </li>
+      <%end%>
+
+  </div>
+</nav>
+
+
+
+<div class="float-right m-4"> <%= @counted_ordered_items %>
+  <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-basket" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z" />
+  </svg>
+</div>
+
+
+
+
+
+<nav class="navbar fixed-bottom bg-dark">
+  <div class="container text-center">
+    <small>Copyright &copy; <%= link_to "TMA", "https://www.facebook.com/tuni.14", class: "text-white"%> </small>
+  </div>
+</nav>

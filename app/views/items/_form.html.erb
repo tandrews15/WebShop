@@ -1,0 +1,49 @@
+<%= form_with(model: item, local: true) do |form| %>
+<% if item.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+  <ul>
+    <% item.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="form-group">
+  <%= form.label :name %>
+  <%= form.text_field :name, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :quantity %>
+  <%= form.number_field :quantity, step: :any, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :price %>
+  <%= form.number_field :price, step: :any, class: "form-control"%>
+</div>
+
+<div class="form-group">
+  <%= form.label :photoUrl %>
+  <%= form.text_field :photoUrl, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :store %>
+  <%= form.collection_check_boxes(:stores_id, Store.all, :id, :name, class: "form-check-label") %>
+</div>
+
+<div class="form-group">
+  <%= form.label :category %>
+  <%= form.collection_select(:category_ids, Category.all, :id, :name,
+        {:prompt => true },
+        {:multiple => true } )%>
+</div>
+
+<div class="form-group">
+  <%= form.submit nil, class: "btn btn-success" %>
+</div>
+<% end %>
